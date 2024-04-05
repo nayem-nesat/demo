@@ -29,12 +29,20 @@ import React, { useState } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { FiUpload } from "react-icons/fi";
 
+import { Cropper, Crop } from "react-advanced-cropper";
+import "react-advanced-cropper/dist/style.css";
+
+
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImage, setSelectedImage] = useState(null);
   const [unsplashQuery, setUnsplashQuery] = useState("");
   const [unsplashImages, setUnsplashImages] = useState([]);
   const [page, setPage] = useState(1);
+
+
+  
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
