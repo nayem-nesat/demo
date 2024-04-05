@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   useDisclosure,
@@ -56,16 +55,7 @@ export default function Home() {
     setSelectedImage(URL.createObjectURL(file));
   };
 
-  // 2nd 
 
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   const imageUrl = URL.createObjectURL(file);
-  //   const corsImageUrl = `${imageUrl}?cross_origin=anonymous`; // Append the crossOrigin parameter
-  //   setSelectedImage(corsImageUrl);
-  // };
-
-  
   const handleUnsplashSearch = async () => {
     try {
       setUnsplashImages([]); // Clear previous search results
@@ -95,32 +85,6 @@ export default function Home() {
       console.error("Error fetching more images from Unsplash:", error);
     }
   };
-
-  // const handleImageClick = (imageUrl) => {
-  //   setSelectedImage(imageUrl);
-  //   onClose(); // Close the modal
-  // };
-
-  // 2nd
-
-  // const handleImageClick = (imageUrl) => {
-  //   const corsImageUrl = `${imageUrl}?w=800&fit=crop&crop=faces&auto=format&q=65&dpr=1&cross_origin=anonymous`; // Append the crossOrigin parameter
-  //   setSelectedImage(corsImageUrl);
-  //   onClose(); // Close the modal
-  // };
-  
-  // 3rd 
-
-  // const handleImageClick = (imageUrl) => {
-  //   const isUnsplashImage = imageUrl.includes('unsplash.com');
-  //   const corsImageUrl = isUnsplashImage
-  //     ? `${imageUrl}?w=800&fit=crop&crop=faces&auto=format&q=65&dpr=1&cross_origin=anonymous`
-  //     : imageUrl;
-  //   setSelectedImage(corsImageUrl);
-  //   onClose(); // Close the modal
-  // };
-
-  // solution for both 
 
   const handleImageClick = (imageUrl) => {
     const isUnsplashImage = imageUrl.includes('unsplash.com');
