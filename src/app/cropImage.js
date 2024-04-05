@@ -1,8 +1,6 @@
 // cropImage.js
 export default async function getCroppedImg(imageSrc, pixelCrop) {
     const image = new Image();
-    // image.crossOrigin = 'anonymous'; // Add this line
-
     const isUnsplashImage = imageSrc.includes('unsplash.com');
     if (isUnsplashImage) {
       image.crossOrigin = 'anonymous';

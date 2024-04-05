@@ -28,12 +28,12 @@ import React, { useState, useCallback } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { FiUpload } from "react-icons/fi";
 import Cropper from "react-easy-crop";
-import getCroppedImg from './cropImage'; 
+import getCroppedImg from "./cropImage";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImage, setSelectedImage] = useState(null);
- 
+
   const [croppedImageUrl, setCroppedImageUrl] = useState(null);
 
   const [unsplashQuery, setUnsplashQuery] = useState("");
@@ -48,13 +48,10 @@ export default function Home() {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-
-
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setSelectedImage(URL.createObjectURL(file));
   };
-
 
   const handleUnsplashSearch = async () => {
     try {
@@ -87,7 +84,7 @@ export default function Home() {
   };
 
   const handleImageClick = (imageUrl) => {
-    const isUnsplashImage = imageUrl.includes('unsplash.com');
+    const isUnsplashImage = imageUrl.includes("unsplash.com");
     const corsImageUrl = isUnsplashImage
       ? `${imageUrl}?w=800&fit=crop&crop=faces&auto=format&q=65&dpr=1&cross_origin=anonymous`
       : imageUrl;
@@ -95,11 +92,12 @@ export default function Home() {
     onClose(); // Close the modal
   };
 
-  
-
   const handleCrop = async () => {
     try {
-      const croppedImage = await getCroppedImg(selectedImage, croppedAreaPixels);
+      const croppedImage = await getCroppedImg(
+        selectedImage,
+        croppedAreaPixels
+      );
       setCroppedImageUrl(croppedImage);
     } catch (e) {
       console.error(e);
@@ -110,33 +108,39 @@ export default function Home() {
     <>
       <ChakraProvider>
         <div>
-        {selectedImage && (
-          <Box width="80%" height="500px" margin="auto" position="relative">
-            <Cropper
-              image={selectedImage}
-              crop={crop}
-              zoom={zoom}
-              aspect={4 / 3}
-              onCropChange={setCrop}
-              onZoomChange={setZoom}
-              onCropComplete={onCropComplete}
-            />
-            <Box position="absolute" bottom="10px" left="50%" transform="translateX(-50%)">
-              <input
-                type="range"
-                value={zoom}
-                min={1}
-                max={3}
-                step={0.1}
-                onChange={(e) => setZoom(e.target.value)}
+          {selectedImage && (
+            <Box width="80%" height="500px" margin="auto" position="relative">
+              <Cropper
+                image={selectedImage}
+                crop={crop}
+                zoom={zoom}
+                aspect={500 / 300}
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
               />
-              <Button colorScheme="teal" onClick={handleCrop}>Done</Button>
+              <Box position="absolute" bottom="-50px">
+                <input
+                  type="range"
+                  value={zoom}
+                  min={1}
+                  max={3}
+                  step={0.1}
+                  onChange={(e) => setZoom(e.target.value)}
+                />
+                <Button colorScheme="teal" onClick={handleCrop}>
+                  Done
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        )}
-        {croppedImageUrl && (
-          <Image src={croppedImageUrl} alt="Cropped" />
-        )}
+          )}
+          {croppedImageUrl && (
+            <Box width="500px" height="300px" marginTop="100px">
+              <Image src={croppedImageUrl} alt="Cropped" />
+            </Box>
+          )}
+
+  
 
 
           <Center marginTop="20px">
@@ -145,7 +149,6 @@ export default function Home() {
             </Button>
           </Center>
 
-     
           <Modal onClose={onClose} isOpen={isOpen} size="xl" isCentered>
             <ModalOverlay />
             <ModalContent>
