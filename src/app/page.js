@@ -14,6 +14,7 @@ import {
   Input,
   Stack,
   Image,
+  Flex,
   Grid,
   GridItem,
   Tabs,
@@ -108,40 +109,62 @@ export default function Home() {
     <>
       <ChakraProvider>
         <div>
-          {selectedImage && (
-            <Box width="80%" height="500px" margin="auto" position="relative">
-              <Cropper
-                image={selectedImage}
-                crop={crop}
-                zoom={zoom}
-                aspect={500 / 300}
-                onCropChange={setCrop}
-                onZoomChange={setZoom}
-                onCropComplete={onCropComplete}
-              />
-              <Box position="absolute" bottom="-50px">
-                <input
-                  type="range"
-                  value={zoom}
-                  min={1}
-                  max={3}
-                  step={0.1}
-                  onChange={(e) => setZoom(e.target.value)}
-                />
-                <Button colorScheme="teal" onClick={handleCrop}>
-                  Done
-                </Button>
-              </Box>
-            </Box>
-          )}
-          {croppedImageUrl && (
-            <Box width="500px" height="300px" marginTop="100px">
-              <Image src={croppedImageUrl} alt="Cropped" />
-            </Box>
-          )}
+    
 
-  
-
+        <Flex
+    direction={{ base: 'column', md: 'row' }}
+    justify="space-around" // Adjusts the spacing between items
+    align="center" // Vertically centers the items
+    width="100%"
+    gap={4} // Adds a gap between the items
+  >
+    {selectedImage && (
+      <Box
+        width={{ base: '80%', md: 'calc(50% - 1rem)' }} // Adjusts width to account for the gap
+        height="500px"
+        margin="auto"
+        position="relative"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center" // Helps vertically center the content
+      >
+        <Cropper
+          image={selectedImage}
+          crop={crop}
+          zoom={zoom}
+          aspect={500 / 300}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onCropComplete={onCropComplete}
+        />
+        <Box position="absolute" bottom="-50px">
+          <input
+            type="range"
+            value={zoom}
+            min={1}
+            max={3}
+            step={0.1}
+            onChange={(e) => setZoom(e.target.value)}
+          />
+          <Button colorScheme="teal" onClick={handleCrop}>
+            Done
+          </Button>
+        </Box>
+      </Box>
+    )}
+    {croppedImageUrl && (
+      <Box
+        width={{ base: '80%', md: 'calc(50% - 1rem)' }} // Adjusts width to account for the gap
+        height="300px"
+        marginTop={{ base: '100px', md: '0' }}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center" // Helps vertically center the content
+      >
+        <Image src={croppedImageUrl} alt="Cropped" objectFit="contain" />
+      </Box>
+    )}
+  </Flex>
 
           <Center marginTop="20px">
             <Button colorScheme="teal" variant="outline" onClick={onOpen}>
